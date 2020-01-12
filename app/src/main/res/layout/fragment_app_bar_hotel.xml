@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="#ffffff">
+
+<!--            <ImageView-->
+<!--                android:id="@+id/backButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_arrow_back_white_24dp"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Detail Order"-->
+<!--                android:layout_marginStart="35dp"-->
+<!--                android:textSize="22sp"-->
+<!--                android:textColor="#fff"/>-->
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/tvPencarian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFF"
+            android:gravity="center"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="Sedang mencari" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffff"
+            android:scrollbars="vertical"
+            android:visibility="invisible" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</FrameLayout>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/lllogin"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Main.LoginActivity"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/saudiok"
+        android:layout_gravity="left"
+        android:layout_marginStart="50dp"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign in"
+        android:textSize="36sp"
+        android:textColor="#332C98"
+        android:textStyle="bold"
+        android:layout_marginTop="21dp"
+        android:layout_gravity="left"
+        android:layout_marginStart="50dp"
+        tools:ignore="RtlHardcoded" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/loginNpm"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:hint="Username"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputPassword"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="#000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/loginPassword"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:hint="Password"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp">
+
+        <CheckBox
+            android:id="@+id/cbEula"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Saya setuju dengan  "
+            android:textSize="11sp"/>
+
+        <TextView
+            android:id="@+id/llink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:text="Syarat dan Ketentuan"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="#353535"
+        android:textAllCaps="false"
+        android:text="Sign in"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="@string/app_name"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Powered by"
+        android:textAlignment="center"
+        android:textSize="12sp"/>
+
+
+
+</LinearLayout>

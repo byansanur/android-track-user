@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.byandev.trackusers">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Main.ListSosActivity"/>
+        <activity android:name=".Main.DetailSosActivity" />
+        <activity android:name=".Main.CreateSosActivity" />
+        <activity android:name=".Main.MapActivity" />
+        <activity android:name=".Main.MapActivityKategoriHotel" />
+        <activity android:name=".Main.MapActivityKategoriKuliner" />
+        <activity android:name=".Main.MapActivityKategoriTravel" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBMGrcSbOEk9L0r-C-TkxpSDEj9uIwLARk" />
+
+        <activity android:name=".Main.DetailRekom" />
+        <activity android:name=".Main.ListTravelActivity" />
+        <activity android:name=".Main.ListKulinerActivity" />
+        <activity android:name=".Main.ListHotelActivity" />
+        <activity android:name=".Main.KategoriActivity" />
+        <activity android:name=".Main.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Main.HomeActivity" />
+        <activity android:name=".Main.TentangActivity" />
+    </application>
+
+</manifest>

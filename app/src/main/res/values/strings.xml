@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TrackUsers</string>
+    <string name="version">100</string>
+    <string name="notice">Apakah Anda Yakin Memerlukan Bantuan?\nDengan mengklik tombol send, anda dapat\nmeminta bantuan kepada petugas.</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:icon="@drawable/ic_more_vert_black_24dp"
+        android:title="home"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/sos"
+                android:title="sos"
+                app:showAsAction="always"/>
+            <item
+                android:id="@+id/tentang"
+                android:title="tentang"
+                app:showAsAction="always"/>
+            <item
+                android:id="@+id/logout"
+                android:title="logout"
+                app:showAsAction="always"/>
+
+        </menu>
+
+    </item>
+</menu>

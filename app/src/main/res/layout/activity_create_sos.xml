@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main.CreateSosActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="#fff"
+            android:id="@+id/toolbar"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Isi Pesan"
+            android:id="@+id/tvpesan"
+            android:textSize="18sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Isi Pesan"
+            android:id="@+id/edtpesan"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/notice"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="15dp"
+                android:textSize="12sp"/>
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/cbSos"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Yes"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                android:textSize="11sp"/>-->
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:id="@+id/btnsend"
+            android:layout_marginTop="15dp" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loading"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</LinearLayout>
