@@ -41,6 +41,7 @@ public class FragmentSosList extends Fragment {
   AdapterSosList adapter;
 
   private boolean itsShouldLoadMore = true;
+  private Integer offset = 15, limit;
 
   LinearLayout iconKosong;
 
@@ -55,6 +56,8 @@ public class FragmentSosList extends Fragment {
     context = getContext();
     mApiServices = UtilsApi.getAPIService();
     sharedPrefManager = new SharedPrefManager(context);
+
+    limit = 15;
 
     iconKosong = view.findViewById(R.id.iconKosong);
 
@@ -102,7 +105,7 @@ public class FragmentSosList extends Fragment {
 
   private void firstLoad() {
     itsShouldLoadMore = false;
-    mApiServices.listSos(sharedPrefManager.getSpId()).enqueue(new Callback<SosListModel>() {
+    mApiServices.listSos(sharedPrefManager.getSpId(), limit, 0).enqueue(new Callback<SosListModel>() {
       @Override
       public void onResponse(Call<SosListModel> call, Response<SosListModel> response) {
         if (response.isSuccessful()) {
@@ -132,7 +135,7 @@ public class FragmentSosList extends Fragment {
 
   private void loadMore() {
     itsShouldLoadMore = false;
-    mApiServices.listSos(sharedPrefManager.getSpId()).enqueue(new Callback<SosListModel>() {
+    mApiServices.listSos(sharedPrefManager.getSpId(), limit, offset).enqueue(new Callback<SosListModel>() {
       @Override
       public void onResponse(Call<SosListModel> call, Response<SosListModel> response) {
         if (response.isSuccessful()) {
@@ -141,6 +144,8 @@ public class FragmentSosList extends Fragment {
             List<SosListModel.Sos> sosModel = response.body().getData();
             lisSos.addAll(sosModel);
             adapter.notifyDataSetChanged();
+            int index = lisSos.size();
+            offset = index;
             progress.setVisibility(View.GONE);
           }
         }

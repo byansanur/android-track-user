@@ -150,6 +150,9 @@ public class HomeActivity extends AppCompatActivity implements androidx.appcompa
         @Override
         public void onClick(View v) {
           // intent profile
+          startActivity(new Intent(context, ProfileActivity.class).
+              addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+          finish();
         }
       });
   }
@@ -175,7 +178,7 @@ public class HomeActivity extends AppCompatActivity implements androidx.appcompa
       salam = "Selamat pagi";
     }
     greeting.setText(salam +", "+ sharedPrefManager.getSPNama());
-    fab.setImageIcon(textAsBitmap(""+sharedPrefManager.getSPNama().charAt(0), 40, Color.WHITE));
+//    fab.setImageIcon(textAsBitmap(""+sharedPrefManager.getSPNama().charAt(0), 40, Color.WHITE));
     tanggal.setText(hariini);
   }
 
@@ -235,22 +238,23 @@ public class HomeActivity extends AppCompatActivity implements androidx.appcompa
     handler.removeCallbacks(r);
 
   }
-
-  @RequiresApi(api = Build.VERSION_CODES.M)
-  public static Icon textAsBitmap(String text, float textSize, int textColor) {
-    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    paint.setTextSize(textSize);
-    paint.setColor(textColor);
-    paint.setTextAlign(Paint.Align.LEFT);
-    float baseline = -paint.ascent(); // ascent() is negative
-    int width = (int) (paint.measureText(text) + 0.0f); // round
-    int height = (int) (baseline + paint.descent() + 0.0f);
-    Bitmap image = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-
-    Canvas canvas = new Canvas(image);
-    canvas.drawText(text, 0, baseline, paint);
-    return Icon.createWithBitmap(image);
-  }
+//
+//  @SuppressLint("NewApi")
+//  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//  public static Icon textAsBitmap(String text, float textSize, int textColor) {
+//    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//    paint.setTextSize(textSize);
+//    paint.setColor(textColor);
+//    paint.setTextAlign(Paint.Align.LEFT);
+//    float baseline = -paint.ascent(); // ascent() is negative
+//    int width = (int) (paint.measureText(text) + 0.0f); // round
+//    int height = (int) (baseline + paint.descent() + 0.0f);
+//    Bitmap image = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+//
+//    Canvas canvas = new Canvas(image);
+//    canvas.drawText(text, 0, baseline, paint);
+//    return Icon.createWithBitmap(image);
+//  }
 
   private boolean checkAndRequestPermissions() {
     int telpon = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);

@@ -38,7 +38,9 @@ public interface ApiEndPoint {
   Call<DetailSosModel> detailSos(@Query("id") Integer id);
 
   @GET("sos/list")
-  Call<SosListModel> listSos (@Query("id_users_sender") Integer idUsers);
+  Call<SosListModel> listSos (@Query("id_users_sender") Integer idUsers,
+                              @Query("limit") Integer limit,
+                              @Query("offset") Integer offset);
 
   @GET("rekom_list")
   Call<RekomModel> rekomkategori(@Query("id_type") Integer idType);

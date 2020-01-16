@@ -1,5 +1,7 @@
 package com.byandev.trackusers.Main;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +31,9 @@ import com.byandev.trackusers.Api.SharedPrefManager;
 import com.byandev.trackusers.Api.UtilsApi;
 import com.byandev.trackusers.Models.SosCreateModel;
 import com.byandev.trackusers.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.io.Serializable;
 
@@ -36,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreateSosActivity extends AppCompatActivity {
+public class CreateSosActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
   private EditText edtPesan;
   private Button btSend;
@@ -46,8 +51,8 @@ public class CreateSosActivity extends AppCompatActivity {
   private Toolbar toolbar;
   private ProgressBar loading;
 
-  LocationManager locMgr;
   Location location;
+  private GoogleApiClient mGoogleApiClient;
   String provider;
 //  double lat, lng;
   String lati, longi;
@@ -56,7 +61,7 @@ public class CreateSosActivity extends AppCompatActivity {
 
   private SosCreateModel.DataCreate s;
 
-  @RequiresApi(api = Build.VERSION_CODES.M)
+//  @RequiresApi(api = Build.VERSION_CODES.M)
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -70,38 +75,20 @@ public class CreateSosActivity extends AppCompatActivity {
     toolbar = findViewById(R.id.toolbar);
     toolbar.setTitle("Sos");
     loading = findViewById(R.id.loading);
-
-
-    initLatLng();
-      listener();
+    
+    listener();
+    setUpGeoCode();
 
 
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.M)
-  private void initLatLng() {
-    locMgr = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-    Criteria c = new Criteria();
-    provider = locMgr.getBestProvider(c, false);
-    if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-      // TODO: Consider calling
-      //    Activity#requestPermissions
-      // here to request the missing permissions, and then overriding
-      //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-      //                                          int[] grantResults)
-      // to handle the case where the user grants the permission. See the documentation
-      // for Activity#requestPermissions for more details.
-      return;
-    }
-    location = locMgr.getLastKnownLocation(provider);
-    if (location != null) {
-      double lat = location.getLatitude();
-      double lng = location.getLongitude();
-//      lati.equals(lat);
-//      longi.equals(lng);
-      lat = Double.parseDouble(lati);
-      lng = Double.parseDouble(longi);
-    }
+  private void setUpGeoCode() {
+    mGoogleApiClient = new GoogleApiClient
+        .Builder(this)
+        .addApi(LocationServices.API)
+        .addConnectionCallbacks(this)
+        .addOnConnectionFailedListener(this)
+        .build();
   }
 
   private void listener() {
@@ -123,7 +110,8 @@ public class CreateSosActivity extends AppCompatActivity {
     mApiServices.sosCreate(
         edtPesan.getText().toString(),
         sharedPrefManager.getSpId(),
-        lati, longi
+        String.valueOf(location.getLatitude()),
+        String.valueOf(location.getLongitude())
     ).enqueue(new Callback<SosCreateModel>() {
       @Override
       public void onResponse(Call<SosCreateModel> call, Response<SosCreateModel> response) {
@@ -131,12 +119,13 @@ public class CreateSosActivity extends AppCompatActivity {
         if (response.isSuccessful()) {
           if (response.body().getApiStatus() == 1) {
 //            idSos = response.body().getData().getId();
-            s = response.body().getData();
-            Toast.makeText(context, "Berhasil meminta bantuan", Toast.LENGTH_LONG).show();
-            finish();
-//            Intent a = new Intent(context, DetailSosActivity.class);
+//            s = response.body().getData();
+//            finish();
+            Intent a = new Intent(context, HomeActivity.class);
 //            a.putExtra("id", idSos);
-//            context.startActivity(a);
+            context.startActivity(a);
+            finish();
+            Toast.makeText(context, "Berhasil meminta bantuan", Toast.LENGTH_LONG).show();
           } else {
             loading.setVisibility(View.GONE);
             Toast.makeText(context, "Gagal meminta bantuan", Toast.LENGTH_SHORT).show();
@@ -160,6 +149,13 @@ public class CreateSosActivity extends AppCompatActivity {
   @Override
   public void onStart() {
     super.onStart();
+    mGoogleApiClient.connect();
+  }
+
+  @Override
+  public void onStop(){
+    super.onStop();
+    mGoogleApiClient.disconnect();
   }
 
   @Override
@@ -175,6 +171,25 @@ public class CreateSosActivity extends AppCompatActivity {
             finish();
           }
         }).show();
+//    finish();
   }
 
+  @Override
+  public void onConnected(@Nullable Bundle bundle) {
+    location = LocationServices.FusedLocationApi.getLastLocation(
+        mGoogleApiClient);
+    if (location != null) {
+      Toast.makeText(this," Connected to Google Location API", Toast.LENGTH_LONG).show();
+    }
+  }
+
+  @Override
+  public void onConnectionSuspended(int i) {
+
+  }
+
+  @Override
+  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+  }
 }
