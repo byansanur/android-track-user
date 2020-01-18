@@ -43,6 +43,7 @@ public class MapActivityKategoriHotel extends AppCompatActivity implements OnMap
   @Override
   public void onMapReady(GoogleMap googleMap) {
     mMap = googleMap;
+    mMap.setMyLocationEnabled(true);
     getAllDataLocationLatLng();
   }
 

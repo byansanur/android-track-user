@@ -1,10 +1,14 @@
 package com.byandev.trackusers.MainFragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,9 +18,12 @@ import com.byandev.trackusers.Api.ApiEndPoint;
 import com.byandev.trackusers.Api.SharedPrefManager;
 import com.byandev.trackusers.Api.UtilsApi;
 import com.byandev.trackusers.Main.DetailSosActivity;
+import com.byandev.trackusers.Main.MapActivity;
 import com.byandev.trackusers.Models.DetailSosModel;
 import com.byandev.trackusers.R;
 import com.google.android.gms.common.api.Api;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,14 +32,14 @@ import retrofit2.Response;
 public class FragmentDetailSos extends Fragment {
 
   private TextView tanggal, nama, pesan, noktp, nohp, novisa, nopasspor;
-  private String sTanggal, sNama, sPesan, sNoVisa, sNoPasspor;
-  private String iNoKtp, iNoHp;
+  private String sNohp;
 
+//  private Button btCall;
   private Context context;
   private ApiEndPoint mApiServices;
   private SharedPrefManager sharedPrefManager;
 
-  private Integer id;
+  private Integer idSos;
 
   public FragmentDetailSos(){
 
@@ -53,9 +60,14 @@ public class FragmentDetailSos extends Fragment {
     nohp = view.findViewById(R.id.tvNoHp);
     novisa = view.findViewById(R.id.tvNovisa);
     nopasspor = view.findViewById(R.id.tvNoPasspor);
+//    btCall = view.findViewById(R.id.callBtn);
 
-    id = ((DetailSosActivity)getActivity()).getId();
+    idSos = ((DetailSosActivity) Objects.requireNonNull(getActivity())).getIdSos();
     return view;
+  }
+
+  private void initNoHp() {
+    nohp.setText(sNohp);
   }
 
   @Override
@@ -67,36 +79,34 @@ public class FragmentDetailSos extends Fragment {
   @Override
   public void onStart(){
     super.onStart();
-    initStringText();
+//    btCall.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        String phoneNumber = sNohp;
+//        Intent dialPhoneIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+//        startActivity(dialPhoneIntent);
+//      }
+//    });
   }
 
-  private void initStringText() {
-    tanggal.setText(sTanggal);
-    nama.setText(sNama);
-    pesan.setText(sPesan);
-    noktp.setText(iNoKtp);
-    nohp.setText(iNoHp);
-    novisa.setText(sNoVisa);
-    nopasspor.setText(sNoPasspor);
-  }
 
   private void data() {
-    mApiServices.detailSos(id).enqueue(new Callback<DetailSosModel>() {
+    mApiServices.detailSos(idSos).enqueue(new Callback<DetailSosModel>() {
       @Override
       public void onResponse(Call<DetailSosModel> call, Response<DetailSosModel> response) {
         if (response.isSuccessful()) {
           if (response.body().getApiStatus() == 1) {
-            try {
-              sTanggal = response.body().getData().getCreatedAt();
-              sNama = response.body().getData().getNama();
-              sPesan = response.body().getData().getMessage();
-              iNoKtp = String.valueOf(response.body().getData().getNoKtp());
-              iNoHp = String.valueOf(response.body().getData().getNoHp());
-              sNoVisa = response.body().getData().getNoVisa();
-              sNoPasspor = response.body().getData().getNoPasspor();
-            } catch (Exception e){
-              e.printStackTrace();
-            }
+              nama.setText(response.body().getData().getNama());
+              pesan.setText(response.body().getData().getMessage());
+              noktp.setText(response.body().getData().getNoKtp());
+              sNohp = "+62 "+ response.body().getData().getNoHp();
+              novisa.setText(response.body().getData().getNoVisa());
+              nopasspor.setText(response.body().getData().getNoPasspor());
+              tanggal.setText(response.body().getData().getCreatedAt());
+
+              Log.d("Nomor hp", sNohp);
+            initNoHp();
+
           } else {
             Toast.makeText(context, "Koneksi bermasalah", Toast.LENGTH_LONG).show();
           }
@@ -107,7 +117,7 @@ public class FragmentDetailSos extends Fragment {
 
       @Override
       public void onFailure(Call<DetailSosModel> call, Throwable t) {
-
+        Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
       }
     });
   }

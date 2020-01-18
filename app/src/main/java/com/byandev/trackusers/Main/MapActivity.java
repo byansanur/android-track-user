@@ -44,6 +44,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
   @Override
   public void onMapReady(GoogleMap googleMap) {
     mMap = googleMap;
+    mMap.setMyLocationEnabled(true);
     getAllDataLocationLatLng();
   }
 
@@ -85,7 +86,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
   private void initMakers(List<RekomModel.Rekom> list) {
     for (int i = 0; i < list.size(); i++) {
       LatLng loc = new LatLng(Double.parseDouble(list.get(i).getLat()), Double.parseDouble(list.get(i).getLng()));
-      mMap.addMarker(new MarkerOptions().position(loc).title(list.get(i).getNama() + " " + list.get(i).getTypeRekom()));
+      mMap.addMarker(new MarkerOptions().position(loc).title(list.get(i).getNama() + "\n" + list.get(i).getTypeRekom()));
       LatLng latLng = new LatLng(Double.parseDouble(list.get(0).getLat()), Double.parseDouble(list.get(0).getLng()));
       mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latLng.latitude, latLng.longitude), 11.0f));
     }

@@ -60,7 +60,7 @@ public class AdapterSosList extends RecyclerView.Adapter<AdapterSosList.ViewHold
       public void onClick(View v) {
         Intent a = new Intent(context, DetailSosActivity.class)
             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        a.putExtra("id", ls.getId());
+        a.putExtra("idSos", ls.getId());
         context.startActivity(a);
       }
     });

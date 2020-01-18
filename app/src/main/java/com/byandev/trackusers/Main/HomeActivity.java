@@ -11,14 +11,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Icon;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +36,11 @@ import androidx.fragment.app.FragmentTransaction;
 import com.byandev.trackusers.Api.ApiEndPoint;
 import com.byandev.trackusers.Api.SharedPrefManager;
 import com.byandev.trackusers.Api.UtilsApi;
+import com.byandev.trackusers.Models.UpdateLocationModel;
 import com.byandev.trackusers.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -43,7 +51,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements androidx.appcompat.widget.Toolbar.OnMenuItemClickListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
 
   public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
@@ -58,6 +70,8 @@ public class HomeActivity extends AppCompatActivity implements androidx.appcompa
   private FloatingActionButton fab;
   androidx.appcompat.widget.Toolbar toolbar;
   private String dateSkrg, dateKmrn;
+  Location location;
+  private GoogleApiClient mGoogleApiClient;
 
   private CardView cardViewSos, cardViewRek, cardListSos;
 
@@ -94,9 +108,51 @@ public class HomeActivity extends AppCompatActivity implements androidx.appcompa
 
       inisialisasiSalam();
 
-    }
+      setUpGeoCode();
+//      listenerUpdate();
 
+  }
 
+  @Override
+  public void onStart(){
+    super.onStart();
+    mGoogleApiClient.connect();
+  }
+
+  private void setUpGeoCode() {
+    mGoogleApiClient = new GoogleApiClient
+        .Builder(this)
+        .addApi(LocationServices.API)
+        .addConnectionCallbacks(this)
+        .addOnConnectionFailedListener(this)
+        .build();
+  }
+
+  private void updateLocationUsers() {
+      mApiService.updateLocation(
+          sharedPrefManager.getSpId(),
+          String.valueOf(location.getLatitude()),
+          String.valueOf(location.getLongitude())
+      ).enqueue(new Callback<UpdateLocationModel>() {
+        @Override
+        public void onResponse(Call<UpdateLocationModel> call, Response<UpdateLocationModel> response) {
+          if (response.isSuccessful()) {
+            if (response.body().getApiStatus() == 1) {
+              Toast.makeText(context, "Berhasil koneksi google maps Api", Toast.LENGTH_LONG).show();
+            }else {
+              Toast.makeText(context, "Gagal kesalahan ip", Toast.LENGTH_SHORT).show();
+            }
+          }else {
+            Toast.makeText(context, "Gagal kesalahan server", Toast.LENGTH_SHORT).show();
+          }
+        }
+
+        @Override
+        public void onFailure(Call<UpdateLocationModel> call, Throwable t) {
+          Toast.makeText(context, "Gagal kesalahan server : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+      });
+  }
 
 
   @Override
@@ -236,6 +292,7 @@ public class HomeActivity extends AppCompatActivity implements androidx.appcompa
     super.onStop();
     logoutcheck = false;
     handler.removeCallbacks(r);
+    mGoogleApiClient.disconnect();
 
   }
 //
@@ -282,4 +339,23 @@ public class HomeActivity extends AppCompatActivity implements androidx.appcompa
     return true;
   }
 
+  @Override
+  public void onConnected(@Nullable Bundle bundle) {
+    location = LocationServices.FusedLocationApi.getLastLocation(
+        mGoogleApiClient);
+    if (location != null) {
+      Toast.makeText(this," Connected to Google Location API", Toast.LENGTH_LONG).show();
+      updateLocationUsers();
+    }
+  }
+
+  @Override
+  public void onConnectionSuspended(int i) {
+
+  }
+
+  @Override
+  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+  }
 }

@@ -43,6 +43,7 @@ public class MapActivityKategoriTravel extends AppCompatActivity implements OnMa
   @Override
   public void onMapReady(GoogleMap googleMap) {
     mMap = googleMap;
+    mMap.setMyLocationEnabled(true);
     getAllDataLocationLatLng();
   }
 

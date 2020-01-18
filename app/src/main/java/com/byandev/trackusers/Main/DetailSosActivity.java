@@ -27,10 +27,11 @@ public class DetailSosActivity extends AppCompatActivity {
   private ApiEndPoint mApiServices;
   SharedPrefManager sharedPrefManager;
 
-  private Integer id;
-  public Integer getId() {
-    return id;
+  public Integer getIdSos() {
+    return idSos;
   }
+
+  private Integer idSos;
 
 
   private Toolbar toolbar;
@@ -48,7 +49,7 @@ public class DetailSosActivity extends AppCompatActivity {
     sharedPrefManager = new SharedPrefManager(context);
 
     toolbar = findViewById(R.id.toolbar);
-    id = getIntent().getIntExtra("id", 0);
+    idSos = getIntent().getIntExtra("idSos", 0);
 
     toolbar.setTitle("Detail");
 

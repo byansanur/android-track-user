@@ -1,19 +1,20 @@
 package com.byandev.trackusers.Api;
 
-import android.content.Intent;
-
 import com.byandev.trackusers.Models.DetailRekomModel;
 import com.byandev.trackusers.Models.DetailSosModel;
 import com.byandev.trackusers.Models.Login;
+import com.byandev.trackusers.Models.ProfileModel;
 import com.byandev.trackusers.Models.RekomModel;
 import com.byandev.trackusers.Models.SosCreateModel;
 import com.byandev.trackusers.Models.SosListModel;
+import com.byandev.trackusers.Models.UpdateLocationModel;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface ApiEndPoint {
@@ -28,6 +29,12 @@ public interface ApiEndPoint {
                                  @Field("id_users_sender")Integer idUsers,
                                  @Field("lat") String lat,
                                  @Field("lng") String lng);
+
+  @FormUrlEncoded
+  @PUT("update_location")
+  Call<UpdateLocationModel> updateLocation(@Field("id") Integer id,
+                                           @Field("lat") String lat,
+                                           @Field("lng") String lng);
 
   @GET("rekom_list")
   Call<RekomModel> rekomList(@Query("id_type") Integer idType,
@@ -54,6 +61,10 @@ public interface ApiEndPoint {
 
   @GET("rekom_detail")
   Call<DetailRekomModel> detail(@Query("id") Integer id);
+
+  @GET("fetch_users")
+  Call<ProfileModel> profile(@Query("id") Integer id,
+                             @Query("id_privileges") Integer idPrivileges);
 
 
 }

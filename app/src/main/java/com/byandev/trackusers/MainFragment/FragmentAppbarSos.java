@@ -55,7 +55,7 @@ public class FragmentAppbarSos extends Fragment {
     sharedPrefManager = new SharedPrefManager(getContext());
 
     toolbar = view.findViewById(R.id.toolbar);
-    toolbar.setTitle("List hotel");
+    toolbar.setTitle("Sos Activity");
 
     tvPencarian = view.findViewById(R.id.tvPencarian);
     tvPencarian.setVisibility(View.GONE);

@@ -43,6 +43,7 @@ public class MapActivityKategoriKuliner extends AppCompatActivity implements OnM
   @Override
   public void onMapReady(GoogleMap googleMap) {
     mMap = googleMap;
+    mMap.setMyLocationEnabled(true);
     getAllDataLocationLatLng();
   }
 

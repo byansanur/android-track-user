@@ -38,7 +38,7 @@ public class DetailSosModel {
     this.data = data;
   }
 
-  public class DataDetailSos {
+  public static class DataDetailSos {
 
     @SerializedName("id")
     @Expose
@@ -66,10 +66,10 @@ public class DetailSosModel {
     private String lng;
     @SerializedName("no_ktp")
     @Expose
-    private Integer noKtp;
+    private String noKtp;
     @SerializedName("no_hp")
     @Expose
-    private Integer noHp;
+    private String noHp;
     @SerializedName("no_visa")
     @Expose
     private String noVisa;
@@ -144,19 +144,19 @@ public class DetailSosModel {
       this.lng = lng;
     }
 
-    public Integer getNoKtp() {
+    public String getNoKtp() {
       return noKtp;
     }
 
-    public void setNoKtp(Integer noKtp) {
+    public void setNoKtp(String noKtp) {
       this.noKtp = noKtp;
     }
 
-    public Integer getNoHp() {
+    public String getNoHp() {
       return noHp;
     }
 
-    public void setNoHp(Integer noHp) {
+    public void setNoHp(String noHp) {
       this.noHp = noHp;
     }
 

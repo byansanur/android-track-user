@@ -93,6 +93,7 @@
                                 android:id="@+id/tvNama"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"
+                                android:text=""
                                 android:layout_height="wrap_content"
                                 android:textColor="#525252"/>
 
@@ -118,6 +119,7 @@
                                 android:id="@+id/tvPesan"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
+                                android:text=""
                                 android:layout_height="wrap_content"
                                 android:textColor="#525252"/>
 
@@ -142,6 +144,7 @@
                                 android:id="@+id/tvKtp"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
+                                android:text=""
                                 android:layout_height="wrap_content"
                                 android:textColor="#525252"/>
 
@@ -167,7 +170,8 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:textColor="#525252"/>
+                                android:textColor="#525252"
+                                android:text=""/>
 
                         </LinearLayout>
 
@@ -191,7 +195,8 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:textColor="#525252"/>
+                                android:textColor="#525252"
+                                android:text=""/>
 
                         </LinearLayout>
 
@@ -215,6 +220,7 @@
                                 android:id="@+id/tvNoPasspor"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
+                                android:text=""
                                 android:layout_height="wrap_content"
                                 android:textColor="#525252"/>
 
@@ -224,6 +230,25 @@
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
+<!--                <Button-->
+<!--                    android:id="@+id/callBtn"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:text="Call"-->
+<!--                    android:textColor="#fff"-->
+<!--                    android:background="@color/colorAccent"/>-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/MapBtn"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:text="Maps"-->
+<!--                    android:textColor="#fff"-->
+<!--                    android:background="@color/colorAccent"/>-->
+
 
             </LinearLayout>
 
