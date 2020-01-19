@@ -213,8 +213,6 @@ public class HomeActivity extends AppCompatActivity implements Toolbar.OnMenuIte
       });
   }
 
-  @SuppressLint("ResourceType")
-  @RequiresApi(api = Build.VERSION_CODES.M)
   private void inisialisasiSalam() {
     Date date =new Date();
     @SuppressLint("SimpleDateFormat")
