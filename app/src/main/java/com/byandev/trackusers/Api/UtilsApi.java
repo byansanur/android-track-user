@@ -1,7 +1,7 @@
 package com.byandev.trackusers.Api;
 
 public class UtilsApi {
-  public static final String BASE_URL_API = "http://192.168.50.52:4001/api/v1/";
+  public static final String BASE_URL_API = "http://192.168.50.53:4001/api/v1/";
 
 
   // Mendeklarasikan Interface BaseApiService
